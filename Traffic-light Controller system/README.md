@@ -9,3 +9,5 @@ The Walk and Stop light are connected to PF3, PF1
 The switches or sensors for west traffic, south traffic, pedestrians are connected to pins PE0, PE1, PE2
 
 Use the 3 switches to toggle between various states.
+
+![Screenshot](implementation.JPG)
