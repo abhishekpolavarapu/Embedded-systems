@@ -11,3 +11,9 @@ The led on the board is configured in such way that whenever the light blinks th
 A bin is created upon executing the files using the make command which can be loaded on to board using LM flash programming tool.
 
 To run this make file the path stored in ROOT variable should be changed to directory where the Tivaware software is installed. Later when make file is run from the working directory the code gets compiled and creates a bin file.
+
+![Screenshot](implementation.JPG)
+
+![Screenshot](implementation2.JPG)
+
+![Screenshot](output.JPG)
