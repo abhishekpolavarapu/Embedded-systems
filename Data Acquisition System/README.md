@@ -14,6 +14,6 @@ To run this make file the path stored in ROOT variable should be changed to dire
 
 ![Screenshot](implementation.JPG)
 
-![Screenshot](implementation 2.JPG)
+![Screenshot](implementation2.JPG)
 
 ![Screenshot](output.JPG)
