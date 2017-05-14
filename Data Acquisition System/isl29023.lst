@@ -1,0 +1,1505 @@
+
+isl29023.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <g_pfnVectors>:
+   0:	00 01 00 20 e1 07 00 00 db 07 00 00 dd 07 00 00     ... ............
+  10:	df 07 00 00 df 07 00 00 df 07 00 00 00 00 00 00     ................
+	...
+  2c:	df 07 00 00 df 07 00 00 00 00 00 00 df 07 00 00     ................
+  3c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  4c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  5c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  6c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  7c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  8c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  9c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  ac:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  bc:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  cc:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  dc:	df 07 00 00 df 07 00 00 df 07 00 00 00 00 00 00     ................
+  ec:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+  fc:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 10c:	df 07 00 00 00 00 00 00 00 00 00 00 df 07 00 00     ................
+ 11c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 12c:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 13c:	df 07 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+ 14c:	00 00 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 15c:	df 07 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+	...
+ 1b0:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 1c0:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 1d0:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 1e0:	df 07 00 00 df 07 00 00 df 07 00 00 00 00 00 00     ................
+ 1f0:	00 00 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 200:	df 07 00 00 df 07 00 00 00 00 00 00 00 00 00 00     ................
+ 210:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 220:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 230:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 240:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 250:	df 07 00 00 df 07 00 00 df 07 00 00 df 07 00 00     ................
+ 260:	df 07 00 00 df 07 00 00 df 07 00 00                 ............
+
+0000026c <ConfigureUART>:
+
+#define LED_RED GPIO_PIN_1
+#define LED_BLUE GPIO_PIN_2
+#define LED_GREEN GPIO_PIN_3
+
+void ConfigureUART(void){
+ 26c:	b510      	push	{r4, lr}
+
+	// Enable the peripherals used by UART
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+ 26e:	4c11      	ldr	r4, [pc, #68]	; (2b4 <ConfigureUART+0x48>)
+ 270:	4811      	ldr	r0, [pc, #68]	; (2b8 <ConfigureUART+0x4c>)
+ 272:	6823      	ldr	r3, [r4, #0]
+ 274:	699b      	ldr	r3, [r3, #24]
+ 276:	4798      	blx	r3
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+ 278:	6823      	ldr	r3, [r4, #0]
+ 27a:	4810      	ldr	r0, [pc, #64]	; (2bc <ConfigureUART+0x50>)
+ 27c:	699b      	ldr	r3, [r3, #24]
+ 27e:	4798      	blx	r3
+
+	// Set GPIO A0 and A1 as UART pins.
+	GPIOPinConfigure(GPIO_PA0_U0RX);
+ 280:	2001      	movs	r0, #1
+ 282:	f000 fc0b 	bl	a9c <GPIOPinConfigure>
+	GPIOPinConfigure(GPIO_PA1_U0TX);
+ 286:	f240 4001 	movw	r0, #1025	; 0x401
+ 28a:	f000 fc07 	bl	a9c <GPIOPinConfigure>
+	ROM_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+ 28e:	4b0c      	ldr	r3, [pc, #48]	; (2c0 <ConfigureUART+0x54>)
+ 290:	681b      	ldr	r3, [r3, #0]
+ 292:	2103      	movs	r1, #3
+ 294:	6d5b      	ldr	r3, [r3, #84]	; 0x54
+ 296:	f04f 2040 	mov.w	r0, #1073758208	; 0x40004000
+ 29a:	4798      	blx	r3
+
+        // Configure UART clock using UART utils
+        UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);
+ 29c:	2105      	movs	r1, #5
+ 29e:	4809      	ldr	r0, [pc, #36]	; (2c4 <ConfigureUART+0x58>)
+ 2a0:	f000 fc1e 	bl	ae0 <UARTClockSourceSet>
+        UARTStdioConfig(0, 115200, 16000000);
+ 2a4:	4a08      	ldr	r2, [pc, #32]	; (2c8 <ConfigureUART+0x5c>)
+ 2a6:	f44f 31e1 	mov.w	r1, #115200	; 0x1c200
+ 2aa:	2000      	movs	r0, #0
+}
+ 2ac:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+        UARTStdioConfig(0, 115200, 16000000);
+ 2b0:	f000 babc 	b.w	82c <UARTStdioConfig>
+ 2b4:	01000044 	.word	0x01000044
+ 2b8:	f0000800 	.word	0xf0000800
+ 2bc:	f0001800 	.word	0xf0001800
+ 2c0:	01000020 	.word	0x01000020
+ 2c4:	4000c000 	.word	0x4000c000
+ 2c8:	00f42400 	.word	0x00f42400
+
+000002cc <ConfigureI2C3>:
+
+void ConfigureI2C3(void){
+ 2cc:	b570      	push	{r4, r5, r6, lr}
+	
+	// Enable peripherals used by I2C
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+ 2ce:	4d16      	ldr	r5, [pc, #88]	; (328 <ConfigureI2C3+0x5c>)
+ 2d0:	4816      	ldr	r0, [pc, #88]	; (32c <ConfigureI2C3+0x60>)
+ 2d2:	682b      	ldr	r3, [r5, #0]
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C3);
+
+	// Setup GPIO
+	ROM_GPIOPinTypeI2CSCL(GPIO_PORTD_BASE, GPIO_PIN_0);
+ 2d4:	4c16      	ldr	r4, [pc, #88]	; (330 <ConfigureI2C3+0x64>)
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+ 2d6:	699b      	ldr	r3, [r3, #24]
+	ROM_GPIOPinTypeI2CSCL(GPIO_PORTD_BASE, GPIO_PIN_0);
+ 2d8:	4e16      	ldr	r6, [pc, #88]	; (334 <ConfigureI2C3+0x68>)
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+ 2da:	4798      	blx	r3
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C3);
+ 2dc:	682b      	ldr	r3, [r5, #0]
+ 2de:	4816      	ldr	r0, [pc, #88]	; (338 <ConfigureI2C3+0x6c>)
+ 2e0:	699b      	ldr	r3, [r3, #24]
+ 2e2:	4798      	blx	r3
+	ROM_GPIOPinTypeI2CSCL(GPIO_PORTD_BASE, GPIO_PIN_0);
+ 2e4:	6823      	ldr	r3, [r4, #0]
+ 2e6:	4630      	mov	r0, r6
+ 2e8:	f8d3 309c 	ldr.w	r3, [r3, #156]	; 0x9c
+ 2ec:	2101      	movs	r1, #1
+ 2ee:	4798      	blx	r3
+	ROM_GPIOPinTypeI2C(GPIO_PORTD_BASE, GPIO_PIN_1);
+ 2f0:	6823      	ldr	r3, [r4, #0]
+ 2f2:	2102      	movs	r1, #2
+ 2f4:	4630      	mov	r0, r6
+ 2f6:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 2f8:	4798      	blx	r3
+
+	// Set GPIO D0 and D1 as SCL and SDA
+	ROM_GPIOPinConfigure(GPIO_PD0_I2C3SCL);
+ 2fa:	6823      	ldr	r3, [r4, #0]
+ 2fc:	f04f 1003 	mov.w	r0, #196611	; 0x30003
+ 300:	6e9b      	ldr	r3, [r3, #104]	; 0x68
+ 302:	4798      	blx	r3
+	ROM_GPIOPinConfigure(GPIO_PD1_I2C3SDA);
+ 304:	6823      	ldr	r3, [r4, #0]
+ 306:	480d      	ldr	r0, [pc, #52]	; (33c <ConfigureI2C3+0x70>)
+ 308:	6e9b      	ldr	r3, [r3, #104]	; 0x68
+ 30a:	4798      	blx	r3
+
+	// Initialize as master - 'true' for fastmode, 'false' for regular
+	ROM_I2CMasterInitExpClk(I2C3_BASE, ROM_SysCtlClockGet(), true);
+ 30c:	4b0c      	ldr	r3, [pc, #48]	; (340 <ConfigureI2C3+0x74>)
+ 30e:	681b      	ldr	r3, [r3, #0]
+ 310:	685c      	ldr	r4, [r3, #4]
+ 312:	682b      	ldr	r3, [r5, #0]
+ 314:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 316:	4798      	blx	r3
+ 318:	4623      	mov	r3, r4
+ 31a:	4601      	mov	r1, r0
+ 31c:	2201      	movs	r2, #1
+ 31e:	4809      	ldr	r0, [pc, #36]	; (344 <ConfigureI2C3+0x78>)
+
+}
+ 320:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
+	ROM_I2CMasterInitExpClk(I2C3_BASE, ROM_SysCtlClockGet(), true);
+ 324:	4718      	bx	r3
+ 326:	bf00      	nop
+ 328:	01000044 	.word	0x01000044
+ 32c:	f0000803 	.word	0xf0000803
+ 330:	01000020 	.word	0x01000020
+ 334:	40007000 	.word	0x40007000
+ 338:	f0002003 	.word	0xf0002003
+ 33c:	00030403 	.word	0x00030403
+ 340:	0100001c 	.word	0x0100001c
+ 344:	40023000 	.word	0x40023000
+
+00000348 <FloatToPrint>:
+
+void FloatToPrint(float floatValue, uint32_t splitValue[2]){
+	int32_t i32IntegerPart;
+	int32_t i32FractionPart;
+
+        i32IntegerPart = (int32_t) floatValue;
+ 348:	eefd 7ac0 	vcvt.s32.f32	s15, s0
+        i32FractionPart = (int32_t) (floatValue * 1000.0f);
+        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+ 34c:	4b09      	ldr	r3, [pc, #36]	; (374 <FloatToPrint+0x2c>)
+        i32IntegerPart = (int32_t) floatValue;
+ 34e:	ee17 2a90 	vmov	r2, s15
+        i32FractionPart = (int32_t) (floatValue * 1000.0f);
+ 352:	eddf 7a09 	vldr	s15, [pc, #36]	; 378 <FloatToPrint+0x30>
+        if(i32FractionPart < 0)
+        {
+            i32FractionPart *= -1;
+        }
+
+	splitValue[0] = i32IntegerPart;
+ 356:	6002      	str	r2, [r0, #0]
+        i32FractionPart = (int32_t) (floatValue * 1000.0f);
+ 358:	ee20 0a27 	vmul.f32	s0, s0, s15
+ 35c:	eebd 0ac0 	vcvt.s32.f32	s0, s0
+        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+ 360:	ee10 1a10 	vmov	r1, s0
+ 364:	fb03 1302 	mla	r3, r3, r2, r1
+	splitValue[1] = i32FractionPart;
+ 368:	2b00      	cmp	r3, #0
+ 36a:	bfb8      	it	lt
+ 36c:	425b      	neglt	r3, r3
+ 36e:	6043      	str	r3, [r0, #4]
+ 370:	4770      	bx	lr
+ 372:	bf00      	nop
+ 374:	fffffc18 	.word	0xfffffc18
+ 378:	447a0000 	.word	0x447a0000
+
+0000037c <main>:
+
+
+
+
+// Main ----------------------------------------------------------------------------------------------
+int main(void){
+ 37c:	b570      	push	{r4, r5, r6, lr}
+
+	// Enable lazy stacking
+	ROM_FPULazyStackingEnable();
+ 37e:	4b2d      	ldr	r3, [pc, #180]	; (434 <main+0xb8>)
+
+	// Set the system clock to run at 40Mhz off PLL with external crystal as reference.
+	ROM_SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN);
+ 380:	4c2d      	ldr	r4, [pc, #180]	; (438 <main+0xbc>)
+	ROM_FPULazyStackingEnable();
+ 382:	681b      	ldr	r3, [r3, #0]
+int main(void){
+ 384:	b08a      	sub	sp, #40	; 0x28
+	ROM_FPULazyStackingEnable();
+ 386:	691b      	ldr	r3, [r3, #16]
+ 388:	4798      	blx	r3
+	ROM_SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN);
+ 38a:	6823      	ldr	r3, [r4, #0]
+ 38c:	482b      	ldr	r0, [pc, #172]	; (43c <main+0xc0>)
+ 38e:	6ddb      	ldr	r3, [r3, #92]	; 0x5c
+ 390:	4798      	blx	r3
+
+	// Initialize the UART and write status.
+	ConfigureUART();
+ 392:	f7ff ff6b 	bl	26c <ConfigureUART>
+	UARTprintf("ISL29023 Example\n");
+ 396:	482a      	ldr	r0, [pc, #168]	; (440 <main+0xc4>)
+ 398:	f000 fb72 	bl	a80 <UARTprintf>
+
+	// Enable LEDs
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+ 39c:	6823      	ldr	r3, [r4, #0]
+ 39e:	4829      	ldr	r0, [pc, #164]	; (444 <main+0xc8>)
+ 3a0:	699b      	ldr	r3, [r3, #24]
+ 3a2:	4798      	blx	r3
+	ROM_GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, LED_RED|LED_BLUE|LED_GREEN);
+ 3a4:	4b28      	ldr	r3, [pc, #160]	; (448 <main+0xcc>)
+ 3a6:	4829      	ldr	r0, [pc, #164]	; (44c <main+0xd0>)
+ 3a8:	681b      	ldr	r3, [r3, #0]
+ 3aa:	210e      	movs	r1, #14
+ 3ac:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 3ae:	4798      	blx	r3
+
+	// Enable I2C3
+	ConfigureI2C3();
+ 3b0:	f7ff ff8c 	bl	2cc <ConfigureI2C3>
+	tISL29023 islSensHub;
+
+	// Create print variables
+	uint32_t printValue[2];
+
+	ISL29023ChangeSettings(ISL29023_COMMANDII_RANGE64k, ISL29023_COMMANDII_RES16, &islSensHub);
+ 3b4:	aa02      	add	r2, sp, #8
+ 3b6:	2100      	movs	r1, #0
+ 3b8:	2003      	movs	r0, #3
+ 3ba:	f000 f84d 	bl	458 <ISL29023ChangeSettings>
+
+	while(1){
+		// Get ALS
+		ISL29023GetALS(&islSensHub);
+ 3be:	a802      	add	r0, sp, #8
+ 3c0:	f000 f94e 	bl	660 <ISL29023GetALS>
+		FloatToPrint(islSensHub.alsVal, printValue);
+ 3c4:	ed9d 0a08 	vldr	s0, [sp, #32]
+		ISL29023GetIR(&islSensHub);
+		FloatToPrint(islSensHub.irVal, printValue);
+		UARTprintf("IR: %d.%03d\n",printValue[0],printValue[1]);
+
+		// Blink LED
+		ROM_GPIOPinWrite(GPIO_PORTF_BASE, LED_RED|LED_GREEN|LED_BLUE, LED_GREEN);
+ 3c8:	4d1f      	ldr	r5, [pc, #124]	; (448 <main+0xcc>)
+		ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/10);	// Delay for 100ms (1/10s) :: ClockGet()/3 = 1second
+ 3ca:	4c1b      	ldr	r4, [pc, #108]	; (438 <main+0xbc>)
+		FloatToPrint(islSensHub.alsVal, printValue);
+ 3cc:	4668      	mov	r0, sp
+ 3ce:	f7ff ffbb 	bl	348 <FloatToPrint>
+		UARTprintf("ALS: %d.%03d |.| ",printValue[0],printValue[1]);
+ 3d2:	e89d 0006 	ldmia.w	sp, {r1, r2}
+ 3d6:	481e      	ldr	r0, [pc, #120]	; (450 <main+0xd4>)
+ 3d8:	f000 fb52 	bl	a80 <UARTprintf>
+		ISL29023GetIR(&islSensHub);
+ 3dc:	a802      	add	r0, sp, #8
+ 3de:	f000 f9e9 	bl	7b4 <ISL29023GetIR>
+		FloatToPrint(islSensHub.irVal, printValue);
+ 3e2:	ed9d 0a09 	vldr	s0, [sp, #36]	; 0x24
+ 3e6:	4668      	mov	r0, sp
+ 3e8:	f7ff ffae 	bl	348 <FloatToPrint>
+		UARTprintf("IR: %d.%03d\n",printValue[0],printValue[1]);
+ 3ec:	e89d 0006 	ldmia.w	sp, {r1, r2}
+ 3f0:	4818      	ldr	r0, [pc, #96]	; (454 <main+0xd8>)
+ 3f2:	f000 fb45 	bl	a80 <UARTprintf>
+		ROM_GPIOPinWrite(GPIO_PORTF_BASE, LED_RED|LED_GREEN|LED_BLUE, LED_GREEN);
+ 3f6:	682b      	ldr	r3, [r5, #0]
+ 3f8:	4814      	ldr	r0, [pc, #80]	; (44c <main+0xd0>)
+ 3fa:	681b      	ldr	r3, [r3, #0]
+ 3fc:	2208      	movs	r2, #8
+ 3fe:	210e      	movs	r1, #14
+ 400:	4798      	blx	r3
+		ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/10);	// Delay for 100ms (1/10s) :: ClockGet()/3 = 1second
+ 402:	6823      	ldr	r3, [r4, #0]
+ 404:	f8d3 6088 	ldr.w	r6, [r3, #136]	; 0x88
+ 408:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 40a:	4798      	blx	r3
+ 40c:	231e      	movs	r3, #30
+ 40e:	fbb0 f0f3 	udiv	r0, r0, r3
+ 412:	47b0      	blx	r6
+		ROM_GPIOPinWrite(GPIO_PORTF_BASE, LED_RED|LED_GREEN|LED_BLUE, 0);
+ 414:	682b      	ldr	r3, [r5, #0]
+ 416:	480d      	ldr	r0, [pc, #52]	; (44c <main+0xd0>)
+ 418:	681b      	ldr	r3, [r3, #0]
+ 41a:	2200      	movs	r2, #0
+ 41c:	210e      	movs	r1, #14
+ 41e:	4798      	blx	r3
+
+		// Delay for second
+		ROM_SysCtlDelay(ROM_SysCtlClockGet()/3);
+ 420:	6823      	ldr	r3, [r4, #0]
+ 422:	f8d3 4088 	ldr.w	r4, [r3, #136]	; 0x88
+ 426:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 428:	4798      	blx	r3
+ 42a:	2303      	movs	r3, #3
+ 42c:	fbb0 f0f3 	udiv	r0, r0, r3
+ 430:	47a0      	blx	r4
+ 432:	e7c4      	b.n	3be <main+0x42>
+ 434:	01000078 	.word	0x01000078
+ 438:	01000044 	.word	0x01000044
+ 43c:	02400540 	.word	0x02400540
+ 440:	00000ae6 	.word	0x00000ae6
+ 444:	f0000805 	.word	0xf0000805
+ 448:	01000020 	.word	0x01000020
+ 44c:	40025000 	.word	0x40025000
+ 450:	00000af8 	.word	0x00000af8
+ 454:	00000b0a 	.word	0x00000b0a
+
+00000458 <ISL29023ChangeSettings>:
+
+
+
+
+// Functions -----------------------------------------------------------------------------------------
+void ISL29023ChangeSettings(uint8_t range, uint8_t resolution, tISL29023 *psInst){
+ 458:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+	// The input range and resolution should have defines from above passed into them
+	// Example: ISL29023ChangeSettings(ISL29023_COMMANDII_RES16, ISL29023_COMMANDII_RANGE64k);
+	// Must be called before starting measurements
+
+	// Configure to write, send control register
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 45c:	4d32      	ldr	r5, [pc, #200]	; (528 <ISL29023ChangeSettings+0xd0>)
+ 45e:	682b      	ldr	r3, [r5, #0]
+void ISL29023ChangeSettings(uint8_t range, uint8_t resolution, tISL29023 *psInst){
+ 460:	4607      	mov	r7, r0
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 462:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 464:	4831      	ldr	r0, [pc, #196]	; (52c <ISL29023ChangeSettings+0xd4>)
+void ISL29023ChangeSettings(uint8_t range, uint8_t resolution, tISL29023 *psInst){
+ 466:	4688      	mov	r8, r1
+ 468:	4614      	mov	r4, r2
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 46a:	2144      	movs	r1, #68	; 0x44
+ 46c:	2200      	movs	r2, #0
+ 46e:	4798      	blx	r3
+	ROM_I2CMasterDataPut(I2C3_BASE, ISL29023_REG_COMMANDII);
+ 470:	682b      	ldr	r3, [r5, #0]
+ 472:	482e      	ldr	r0, [pc, #184]	; (52c <ISL29023ChangeSettings+0xd4>)
+ 474:	681b      	ldr	r3, [r3, #0]
+ 476:	2101      	movs	r1, #1
+ 478:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_START);
+ 47a:	682b      	ldr	r3, [r5, #0]
+ 47c:	482b      	ldr	r0, [pc, #172]	; (52c <ISL29023ChangeSettings+0xd4>)
+ 47e:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 480:	2103      	movs	r1, #3
+ 482:	4798      	blx	r3
+
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 484:	682b      	ldr	r3, [r5, #0]
+ 486:	4829      	ldr	r0, [pc, #164]	; (52c <ISL29023ChangeSettings+0xd4>)
+ 488:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 48a:	4e27      	ldr	r6, [pc, #156]	; (528 <ISL29023ChangeSettings+0xd0>)
+ 48c:	4798      	blx	r3
+ 48e:	2800      	cmp	r0, #0
+ 490:	d1f8      	bne.n	484 <ISL29023ChangeSettings+0x2c>
+
+	ROM_I2CMasterDataPut(I2C3_BASE, (range | resolution));
+ 492:	6833      	ldr	r3, [r6, #0]
+ 494:	4825      	ldr	r0, [pc, #148]	; (52c <ISL29023ChangeSettings+0xd4>)
+ 496:	681b      	ldr	r3, [r3, #0]
+ 498:	ea47 0108 	orr.w	r1, r7, r8
+ 49c:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_FINISH);
+ 49e:	6833      	ldr	r3, [r6, #0]
+ 4a0:	4822      	ldr	r0, [pc, #136]	; (52c <ISL29023ChangeSettings+0xd4>)
+ 4a2:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 4a4:	2105      	movs	r1, #5
+ 4a6:	4798      	blx	r3
+
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 4a8:	6833      	ldr	r3, [r6, #0]
+ 4aa:	4820      	ldr	r0, [pc, #128]	; (52c <ISL29023ChangeSettings+0xd4>)
+ 4ac:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 4ae:	4798      	blx	r3
+ 4b0:	2800      	cmp	r0, #0
+ 4b2:	d1f9      	bne.n	4a8 <ISL29023ChangeSettings+0x50>
+
+	switch(resolution){
+ 4b4:	f1b8 0f0c 	cmp.w	r8, #12
+ 4b8:	d813      	bhi.n	4e2 <ISL29023ChangeSettings+0x8a>
+ 4ba:	e8df f008 	tbb	[pc, r8]
+ 4be:	1207      	.short	0x1207
+ 4c0:	120a1212 	.word	0x120a1212
+ 4c4:	120d1212 	.word	0x120d1212
+ 4c8:	1212      	.short	0x1212
+ 4ca:	10          	.byte	0x10
+ 4cb:	00          	.byte	0x00
+		case ISL29023_COMMANDII_RES16:
+			psInst->resSetting = 65536;
+ 4cc:	f44f 3380 	mov.w	r3, #65536	; 0x10000
+ 4d0:	e006      	b.n	4e0 <ISL29023ChangeSettings+0x88>
+			break;
+		case ISL29023_COMMANDII_RES12:
+			psInst->resSetting = 4096;
+ 4d2:	f44f 5380 	mov.w	r3, #4096	; 0x1000
+ 4d6:	e003      	b.n	4e0 <ISL29023ChangeSettings+0x88>
+			break;
+		case ISL29023_COMMANDII_RES8:
+			psInst->resSetting = 256;
+ 4d8:	f44f 7380 	mov.w	r3, #256	; 0x100
+ 4dc:	e000      	b.n	4e0 <ISL29023ChangeSettings+0x88>
+			break;
+		case ISL29023_COMMANDII_RES4:
+			psInst->resSetting = 16;
+ 4de:	2310      	movs	r3, #16
+ 4e0:	6023      	str	r3, [r4, #0]
+			break;
+		default:
+			break;
+	}
+
+	switch(range){
+ 4e2:	2f03      	cmp	r7, #3
+ 4e4:	d80f      	bhi.n	506 <ISL29023ChangeSettings+0xae>
+ 4e6:	e8df f007 	tbb	[pc, r7]
+ 4ea:	050b      	.short	0x050b
+ 4ec:	0208      	.short	0x0208
+		case ISL29023_COMMANDII_RANGE64k:
+			psInst->rangeSetting = 64000;
+ 4ee:	f44f 437a 	mov.w	r3, #64000	; 0xfa00
+ 4f2:	e007      	b.n	504 <ISL29023ChangeSettings+0xac>
+			break;
+		case ISL29023_COMMANDII_RANGE16k:
+			psInst->rangeSetting = 16000;
+ 4f4:	f44f 537a 	mov.w	r3, #16000	; 0x3e80
+ 4f8:	e004      	b.n	504 <ISL29023ChangeSettings+0xac>
+			break;
+		case ISL29023_COMMANDII_RANGE4k:
+			psInst->rangeSetting = 4000;
+ 4fa:	f44f 637a 	mov.w	r3, #4000	; 0xfa0
+ 4fe:	e001      	b.n	504 <ISL29023ChangeSettings+0xac>
+			break;
+		case ISL29023_COMMANDII_RANGE1k:
+			psInst->rangeSetting = 1000;
+ 500:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
+ 504:	80a3      	strh	r3, [r4, #4]
+			break;
+		default:
+			break;
+	}
+
+	psInst->alpha = (float)psInst->rangeSetting / (float)psInst->resSetting;
+ 506:	88a3      	ldrh	r3, [r4, #4]
+ 508:	edd4 7a00 	vldr	s15, [r4]
+ 50c:	ee07 3a10 	vmov	s14, r3
+ 510:	eef8 7a67 	vcvt.f32.u32	s15, s15
+ 514:	eeb8 7a47 	vcvt.f32.u32	s14, s14
+	psInst->beta = 95.238;
+ 518:	4b05      	ldr	r3, [pc, #20]	; (530 <ISL29023ChangeSettings+0xd8>)
+ 51a:	6163      	str	r3, [r4, #20]
+	psInst->alpha = (float)psInst->rangeSetting / (float)psInst->resSetting;
+ 51c:	eec7 6a27 	vdiv.f32	s13, s14, s15
+ 520:	edc4 6a04 	vstr	s13, [r4, #16]
+	psInst->beta = 95.238;
+ 524:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+ 528:	0100001c 	.word	0x0100001c
+ 52c:	40023000 	.word	0x40023000
+ 530:	42be79db 	.word	0x42be79db
+
+00000534 <ISL29023GetRawALS>:
+}
+
+void ISL29023GetRawALS(tISL29023 *psInst){
+ 534:	b570      	push	{r4, r5, r6, lr}
+
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 536:	4c47      	ldr	r4, [pc, #284]	; (654 <ISL29023GetRawALS+0x120>)
+ 538:	6823      	ldr	r3, [r4, #0]
+ 53a:	2200      	movs	r2, #0
+ 53c:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 53e:	2144      	movs	r1, #68	; 0x44
+void ISL29023GetRawALS(tISL29023 *psInst){
+ 540:	4606      	mov	r6, r0
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 542:	4845      	ldr	r0, [pc, #276]	; (658 <ISL29023GetRawALS+0x124>)
+ 544:	4798      	blx	r3
+	ROM_I2CMasterDataPut(I2C3_BASE, ISL29023_REG_COMMANDI);
+ 546:	6823      	ldr	r3, [r4, #0]
+ 548:	4843      	ldr	r0, [pc, #268]	; (658 <ISL29023GetRawALS+0x124>)
+ 54a:	681b      	ldr	r3, [r3, #0]
+ 54c:	2100      	movs	r1, #0
+ 54e:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_START);
+ 550:	6823      	ldr	r3, [r4, #0]
+ 552:	4841      	ldr	r0, [pc, #260]	; (658 <ISL29023GetRawALS+0x124>)
+ 554:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 556:	2103      	movs	r1, #3
+ 558:	4798      	blx	r3
+
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 55a:	6823      	ldr	r3, [r4, #0]
+ 55c:	483e      	ldr	r0, [pc, #248]	; (658 <ISL29023GetRawALS+0x124>)
+ 55e:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 560:	4d3c      	ldr	r5, [pc, #240]	; (654 <ISL29023GetRawALS+0x120>)
+ 562:	4798      	blx	r3
+ 564:	2800      	cmp	r0, #0
+ 566:	d1f8      	bne.n	55a <ISL29023GetRawALS+0x26>
+
+	ROM_I2CMasterDataPut(I2C3_BASE, ISL29023_COMMANDI_ONEALS | ISL29023_COMMANDI_PERSIST1);
+ 568:	682b      	ldr	r3, [r5, #0]
+ 56a:	483b      	ldr	r0, [pc, #236]	; (658 <ISL29023GetRawALS+0x124>)
+ 56c:	681b      	ldr	r3, [r3, #0]
+ 56e:	2120      	movs	r1, #32
+ 570:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_FINISH);
+ 572:	682b      	ldr	r3, [r5, #0]
+ 574:	4838      	ldr	r0, [pc, #224]	; (658 <ISL29023GetRawALS+0x124>)
+ 576:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 578:	2105      	movs	r1, #5
+ 57a:	4798      	blx	r3
+
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 57c:	682b      	ldr	r3, [r5, #0]
+ 57e:	4836      	ldr	r0, [pc, #216]	; (658 <ISL29023GetRawALS+0x124>)
+ 580:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 582:	4798      	blx	r3
+ 584:	2800      	cmp	r0, #0
+ 586:	d1f9      	bne.n	57c <ISL29023GetRawALS+0x48>
+
+	switch(psInst->resSetting){
+ 588:	6832      	ldr	r2, [r6, #0]
+ 58a:	4b34      	ldr	r3, [pc, #208]	; (65c <ISL29023GetRawALS+0x128>)
+ 58c:	f5b2 7f80 	cmp.w	r2, #256	; 0x100
+ 590:	d00e      	beq.n	5b0 <ISL29023GetRawALS+0x7c>
+ 592:	d802      	bhi.n	59a <ISL29023GetRawALS+0x66>
+ 594:	2a10      	cmp	r2, #16
+ 596:	d00b      	beq.n	5b0 <ISL29023GetRawALS+0x7c>
+ 598:	e012      	b.n	5c0 <ISL29023GetRawALS+0x8c>
+ 59a:	f5b2 5f80 	cmp.w	r2, #4096	; 0x1000
+ 59e:	d10f      	bne.n	5c0 <ISL29023GetRawALS+0x8c>
+		case 65536:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/11);
+			break;
+		case 4096:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/166);
+ 5a0:	681b      	ldr	r3, [r3, #0]
+ 5a2:	f8d3 4088 	ldr.w	r4, [r3, #136]	; 0x88
+ 5a6:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 5a8:	4798      	blx	r3
+ 5aa:	f44f 73f9 	mov.w	r3, #498	; 0x1f2
+ 5ae:	e00d      	b.n	5cc <ISL29023GetRawALS+0x98>
+			break;
+		case 256:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/250);
+			break;
+		case 16:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/250);
+ 5b0:	681b      	ldr	r3, [r3, #0]
+ 5b2:	f8d3 4088 	ldr.w	r4, [r3, #136]	; 0x88
+ 5b6:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 5b8:	4798      	blx	r3
+ 5ba:	f240 23ee 	movw	r3, #750	; 0x2ee
+ 5be:	e005      	b.n	5cc <ISL29023GetRawALS+0x98>
+			break;
+		default:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/11);
+ 5c0:	681b      	ldr	r3, [r3, #0]
+ 5c2:	f8d3 4088 	ldr.w	r4, [r3, #136]	; 0x88
+ 5c6:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 5c8:	4798      	blx	r3
+ 5ca:	2321      	movs	r3, #33	; 0x21
+ 5cc:	fbb0 f0f3 	udiv	r0, r0, r3
+ 5d0:	47a0      	blx	r4
+			break;
+	}
+
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 5d2:	4c20      	ldr	r4, [pc, #128]	; (654 <ISL29023GetRawALS+0x120>)
+ 5d4:	4820      	ldr	r0, [pc, #128]	; (658 <ISL29023GetRawALS+0x124>)
+ 5d6:	6823      	ldr	r3, [r4, #0]
+ 5d8:	2200      	movs	r2, #0
+ 5da:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 5dc:	2144      	movs	r1, #68	; 0x44
+ 5de:	4798      	blx	r3
+	ROM_I2CMasterDataPut(I2C3_BASE, ISL29023_REG_DATALSB);
+ 5e0:	6823      	ldr	r3, [r4, #0]
+ 5e2:	481d      	ldr	r0, [pc, #116]	; (658 <ISL29023GetRawALS+0x124>)
+ 5e4:	681b      	ldr	r3, [r3, #0]
+ 5e6:	2102      	movs	r1, #2
+ 5e8:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_START);
+ 5ea:	6823      	ldr	r3, [r4, #0]
+ 5ec:	481a      	ldr	r0, [pc, #104]	; (658 <ISL29023GetRawALS+0x124>)
+ 5ee:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 5f0:	2103      	movs	r1, #3
+ 5f2:	4798      	blx	r3
+	
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 5f4:	6823      	ldr	r3, [r4, #0]
+ 5f6:	4818      	ldr	r0, [pc, #96]	; (658 <ISL29023GetRawALS+0x124>)
+ 5f8:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 5fa:	4d16      	ldr	r5, [pc, #88]	; (654 <ISL29023GetRawALS+0x120>)
+ 5fc:	4798      	blx	r3
+ 5fe:	2800      	cmp	r0, #0
+ 600:	d1f8      	bne.n	5f4 <ISL29023GetRawALS+0xc0>
+
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, true);
+ 602:	682b      	ldr	r3, [r5, #0]
+ 604:	4814      	ldr	r0, [pc, #80]	; (658 <ISL29023GetRawALS+0x124>)
+ 606:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 608:	2144      	movs	r1, #68	; 0x44
+ 60a:	2201      	movs	r2, #1
+ 60c:	4798      	blx	r3
+
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_RECEIVE_START);
+ 60e:	682b      	ldr	r3, [r5, #0]
+ 610:	4811      	ldr	r0, [pc, #68]	; (658 <ISL29023GetRawALS+0x124>)
+ 612:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 614:	210b      	movs	r1, #11
+ 616:	4798      	blx	r3
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 618:	682b      	ldr	r3, [r5, #0]
+ 61a:	480f      	ldr	r0, [pc, #60]	; (658 <ISL29023GetRawALS+0x124>)
+ 61c:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 61e:	4c0d      	ldr	r4, [pc, #52]	; (654 <ISL29023GetRawALS+0x120>)
+ 620:	4798      	blx	r3
+ 622:	2800      	cmp	r0, #0
+ 624:	d1f8      	bne.n	618 <ISL29023GetRawALS+0xe4>
+	psInst->rawVals[1] = ROM_I2CMasterDataGet(I2C3_BASE);
+ 626:	6823      	ldr	r3, [r4, #0]
+ 628:	480b      	ldr	r0, [pc, #44]	; (658 <ISL29023GetRawALS+0x124>)
+ 62a:	6d1b      	ldr	r3, [r3, #80]	; 0x50
+ 62c:	4798      	blx	r3
+ 62e:	60f0      	str	r0, [r6, #12]
+
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_RECEIVE_FINISH);
+ 630:	6823      	ldr	r3, [r4, #0]
+ 632:	4809      	ldr	r0, [pc, #36]	; (658 <ISL29023GetRawALS+0x124>)
+ 634:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 636:	2105      	movs	r1, #5
+ 638:	4798      	blx	r3
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 63a:	6823      	ldr	r3, [r4, #0]
+ 63c:	4806      	ldr	r0, [pc, #24]	; (658 <ISL29023GetRawALS+0x124>)
+ 63e:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 640:	4798      	blx	r3
+ 642:	2800      	cmp	r0, #0
+ 644:	d1f9      	bne.n	63a <ISL29023GetRawALS+0x106>
+	psInst->rawVals[0] = ROM_I2CMasterDataGet(I2C3_BASE);
+ 646:	4b03      	ldr	r3, [pc, #12]	; (654 <ISL29023GetRawALS+0x120>)
+ 648:	4803      	ldr	r0, [pc, #12]	; (658 <ISL29023GetRawALS+0x124>)
+ 64a:	681b      	ldr	r3, [r3, #0]
+ 64c:	6d1b      	ldr	r3, [r3, #80]	; 0x50
+ 64e:	4798      	blx	r3
+ 650:	60b0      	str	r0, [r6, #8]
+ 652:	bd70      	pop	{r4, r5, r6, pc}
+ 654:	0100001c 	.word	0x0100001c
+ 658:	40023000 	.word	0x40023000
+ 65c:	01000044 	.word	0x01000044
+
+00000660 <ISL29023GetALS>:
+}
+
+void ISL29023GetALS(tISL29023 *psInst){
+ 660:	b510      	push	{r4, lr}
+ 662:	4604      	mov	r4, r0
+	ISL29023GetRawALS(psInst);
+ 664:	f7ff ff66 	bl	534 <ISL29023GetRawALS>
+	psInst->alsVal = psInst->alpha * ((float)((psInst->rawVals[0] << 8) | psInst->rawVals[1]));
+ 668:	68a2      	ldr	r2, [r4, #8]
+ 66a:	68e3      	ldr	r3, [r4, #12]
+ 66c:	ed94 7a04 	vldr	s14, [r4, #16]
+ 670:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+ 674:	ee07 3a90 	vmov	s15, r3
+ 678:	eef8 7a67 	vcvt.f32.u32	s15, s15
+ 67c:	ee67 7a87 	vmul.f32	s15, s15, s14
+ 680:	edc4 7a06 	vstr	s15, [r4, #24]
+ 684:	bd10      	pop	{r4, pc}
+	...
+
+00000688 <ISL29023GetRawIR>:
+}
+
+void ISL29023GetRawIR(tISL29023 *psInst){
+ 688:	b570      	push	{r4, r5, r6, lr}
+
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 68a:	4c47      	ldr	r4, [pc, #284]	; (7a8 <ISL29023GetRawIR+0x120>)
+ 68c:	6823      	ldr	r3, [r4, #0]
+ 68e:	2200      	movs	r2, #0
+ 690:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 692:	2144      	movs	r1, #68	; 0x44
+void ISL29023GetRawIR(tISL29023 *psInst){
+ 694:	4606      	mov	r6, r0
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 696:	4845      	ldr	r0, [pc, #276]	; (7ac <ISL29023GetRawIR+0x124>)
+ 698:	4798      	blx	r3
+	ROM_I2CMasterDataPut(I2C3_BASE, ISL29023_REG_COMMANDI);
+ 69a:	6823      	ldr	r3, [r4, #0]
+ 69c:	4843      	ldr	r0, [pc, #268]	; (7ac <ISL29023GetRawIR+0x124>)
+ 69e:	681b      	ldr	r3, [r3, #0]
+ 6a0:	2100      	movs	r1, #0
+ 6a2:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_START);
+ 6a4:	6823      	ldr	r3, [r4, #0]
+ 6a6:	4841      	ldr	r0, [pc, #260]	; (7ac <ISL29023GetRawIR+0x124>)
+ 6a8:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 6aa:	2103      	movs	r1, #3
+ 6ac:	4798      	blx	r3
+
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 6ae:	6823      	ldr	r3, [r4, #0]
+ 6b0:	483e      	ldr	r0, [pc, #248]	; (7ac <ISL29023GetRawIR+0x124>)
+ 6b2:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 6b4:	4d3c      	ldr	r5, [pc, #240]	; (7a8 <ISL29023GetRawIR+0x120>)
+ 6b6:	4798      	blx	r3
+ 6b8:	2800      	cmp	r0, #0
+ 6ba:	d1f8      	bne.n	6ae <ISL29023GetRawIR+0x26>
+
+	ROM_I2CMasterDataPut(I2C3_BASE, ISL29023_COMMANDI_ONEIR | ISL29023_COMMANDI_PERSIST1);
+ 6bc:	682b      	ldr	r3, [r5, #0]
+ 6be:	483b      	ldr	r0, [pc, #236]	; (7ac <ISL29023GetRawIR+0x124>)
+ 6c0:	681b      	ldr	r3, [r3, #0]
+ 6c2:	2140      	movs	r1, #64	; 0x40
+ 6c4:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_FINISH);
+ 6c6:	682b      	ldr	r3, [r5, #0]
+ 6c8:	4838      	ldr	r0, [pc, #224]	; (7ac <ISL29023GetRawIR+0x124>)
+ 6ca:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 6cc:	2105      	movs	r1, #5
+ 6ce:	4798      	blx	r3
+
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 6d0:	682b      	ldr	r3, [r5, #0]
+ 6d2:	4836      	ldr	r0, [pc, #216]	; (7ac <ISL29023GetRawIR+0x124>)
+ 6d4:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 6d6:	4798      	blx	r3
+ 6d8:	2800      	cmp	r0, #0
+ 6da:	d1f9      	bne.n	6d0 <ISL29023GetRawIR+0x48>
+
+	switch(psInst->resSetting){
+ 6dc:	6832      	ldr	r2, [r6, #0]
+ 6de:	4b34      	ldr	r3, [pc, #208]	; (7b0 <ISL29023GetRawIR+0x128>)
+ 6e0:	f5b2 7f80 	cmp.w	r2, #256	; 0x100
+ 6e4:	d00e      	beq.n	704 <ISL29023GetRawIR+0x7c>
+ 6e6:	d802      	bhi.n	6ee <ISL29023GetRawIR+0x66>
+ 6e8:	2a10      	cmp	r2, #16
+ 6ea:	d00b      	beq.n	704 <ISL29023GetRawIR+0x7c>
+ 6ec:	e012      	b.n	714 <ISL29023GetRawIR+0x8c>
+ 6ee:	f5b2 5f80 	cmp.w	r2, #4096	; 0x1000
+ 6f2:	d10f      	bne.n	714 <ISL29023GetRawIR+0x8c>
+		case 65536:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/11);
+			break;
+		case 4096:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/166);
+ 6f4:	681b      	ldr	r3, [r3, #0]
+ 6f6:	f8d3 4088 	ldr.w	r4, [r3, #136]	; 0x88
+ 6fa:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 6fc:	4798      	blx	r3
+ 6fe:	f44f 73f9 	mov.w	r3, #498	; 0x1f2
+ 702:	e00d      	b.n	720 <ISL29023GetRawIR+0x98>
+			break;
+		case 256:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/250);
+			break;
+		case 16:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/250);
+ 704:	681b      	ldr	r3, [r3, #0]
+ 706:	f8d3 4088 	ldr.w	r4, [r3, #136]	; 0x88
+ 70a:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 70c:	4798      	blx	r3
+ 70e:	f240 23ee 	movw	r3, #750	; 0x2ee
+ 712:	e005      	b.n	720 <ISL29023GetRawIR+0x98>
+			break;
+		default:
+			ROM_SysCtlDelay(ROM_SysCtlClockGet()/3/11);
+ 714:	681b      	ldr	r3, [r3, #0]
+ 716:	f8d3 4088 	ldr.w	r4, [r3, #136]	; 0x88
+ 71a:	6e1b      	ldr	r3, [r3, #96]	; 0x60
+ 71c:	4798      	blx	r3
+ 71e:	2321      	movs	r3, #33	; 0x21
+ 720:	fbb0 f0f3 	udiv	r0, r0, r3
+ 724:	47a0      	blx	r4
+			break;
+	}
+
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, false);
+ 726:	4c20      	ldr	r4, [pc, #128]	; (7a8 <ISL29023GetRawIR+0x120>)
+ 728:	4820      	ldr	r0, [pc, #128]	; (7ac <ISL29023GetRawIR+0x124>)
+ 72a:	6823      	ldr	r3, [r4, #0]
+ 72c:	2200      	movs	r2, #0
+ 72e:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 730:	2144      	movs	r1, #68	; 0x44
+ 732:	4798      	blx	r3
+	ROM_I2CMasterDataPut(I2C3_BASE, ISL29023_REG_DATALSB);
+ 734:	6823      	ldr	r3, [r4, #0]
+ 736:	481d      	ldr	r0, [pc, #116]	; (7ac <ISL29023GetRawIR+0x124>)
+ 738:	681b      	ldr	r3, [r3, #0]
+ 73a:	2102      	movs	r1, #2
+ 73c:	4798      	blx	r3
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_SEND_START);
+ 73e:	6823      	ldr	r3, [r4, #0]
+ 740:	481a      	ldr	r0, [pc, #104]	; (7ac <ISL29023GetRawIR+0x124>)
+ 742:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 744:	2103      	movs	r1, #3
+ 746:	4798      	blx	r3
+	
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 748:	6823      	ldr	r3, [r4, #0]
+ 74a:	4818      	ldr	r0, [pc, #96]	; (7ac <ISL29023GetRawIR+0x124>)
+ 74c:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 74e:	4d16      	ldr	r5, [pc, #88]	; (7a8 <ISL29023GetRawIR+0x120>)
+ 750:	4798      	blx	r3
+ 752:	2800      	cmp	r0, #0
+ 754:	d1f8      	bne.n	748 <ISL29023GetRawIR+0xc0>
+
+	ROM_I2CMasterSlaveAddrSet(I2C3_BASE, ISL29023_I2C_ADDRESS, true);
+ 756:	682b      	ldr	r3, [r5, #0]
+ 758:	4814      	ldr	r0, [pc, #80]	; (7ac <ISL29023GetRawIR+0x124>)
+ 75a:	6bdb      	ldr	r3, [r3, #60]	; 0x3c
+ 75c:	2144      	movs	r1, #68	; 0x44
+ 75e:	2201      	movs	r2, #1
+ 760:	4798      	blx	r3
+
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_RECEIVE_START);
+ 762:	682b      	ldr	r3, [r5, #0]
+ 764:	4811      	ldr	r0, [pc, #68]	; (7ac <ISL29023GetRawIR+0x124>)
+ 766:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 768:	210b      	movs	r1, #11
+ 76a:	4798      	blx	r3
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 76c:	682b      	ldr	r3, [r5, #0]
+ 76e:	480f      	ldr	r0, [pc, #60]	; (7ac <ISL29023GetRawIR+0x124>)
+ 770:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 772:	4c0d      	ldr	r4, [pc, #52]	; (7a8 <ISL29023GetRawIR+0x120>)
+ 774:	4798      	blx	r3
+ 776:	2800      	cmp	r0, #0
+ 778:	d1f8      	bne.n	76c <ISL29023GetRawIR+0xe4>
+	psInst->rawVals[1] = ROM_I2CMasterDataGet(I2C3_BASE);
+ 77a:	6823      	ldr	r3, [r4, #0]
+ 77c:	480b      	ldr	r0, [pc, #44]	; (7ac <ISL29023GetRawIR+0x124>)
+ 77e:	6d1b      	ldr	r3, [r3, #80]	; 0x50
+ 780:	4798      	blx	r3
+ 782:	60f0      	str	r0, [r6, #12]
+
+	ROM_I2CMasterControl(I2C3_BASE, I2C_MASTER_CMD_BURST_RECEIVE_FINISH);
+ 784:	6823      	ldr	r3, [r4, #0]
+ 786:	4809      	ldr	r0, [pc, #36]	; (7ac <ISL29023GetRawIR+0x124>)
+ 788:	6c9b      	ldr	r3, [r3, #72]	; 0x48
+ 78a:	2105      	movs	r1, #5
+ 78c:	4798      	blx	r3
+	while(ROM_I2CMasterBusy(I2C3_BASE)){}
+ 78e:	6823      	ldr	r3, [r4, #0]
+ 790:	4806      	ldr	r0, [pc, #24]	; (7ac <ISL29023GetRawIR+0x124>)
+ 792:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 794:	4798      	blx	r3
+ 796:	2800      	cmp	r0, #0
+ 798:	d1f9      	bne.n	78e <ISL29023GetRawIR+0x106>
+	psInst->rawVals[0] = ROM_I2CMasterDataGet(I2C3_BASE);
+ 79a:	4b03      	ldr	r3, [pc, #12]	; (7a8 <ISL29023GetRawIR+0x120>)
+ 79c:	4803      	ldr	r0, [pc, #12]	; (7ac <ISL29023GetRawIR+0x124>)
+ 79e:	681b      	ldr	r3, [r3, #0]
+ 7a0:	6d1b      	ldr	r3, [r3, #80]	; 0x50
+ 7a2:	4798      	blx	r3
+ 7a4:	60b0      	str	r0, [r6, #8]
+ 7a6:	bd70      	pop	{r4, r5, r6, pc}
+ 7a8:	0100001c 	.word	0x0100001c
+ 7ac:	40023000 	.word	0x40023000
+ 7b0:	01000044 	.word	0x01000044
+
+000007b4 <ISL29023GetIR>:
+}
+
+void ISL29023GetIR(tISL29023 *psInst){
+ 7b4:	b510      	push	{r4, lr}
+ 7b6:	4604      	mov	r4, r0
+	ISL29023GetRawIR(psInst);
+ 7b8:	f7ff ff66 	bl	688 <ISL29023GetRawIR>
+	psInst->irVal = ((float)((psInst->rawVals[0] << 8) | psInst->rawVals[1])) / psInst->beta;
+ 7bc:	68a2      	ldr	r2, [r4, #8]
+ 7be:	68e3      	ldr	r3, [r4, #12]
+ 7c0:	edd4 6a05 	vldr	s13, [r4, #20]
+ 7c4:	ea43 2302 	orr.w	r3, r3, r2, lsl #8
+ 7c8:	ee07 3a90 	vmov	s15, r3
+ 7cc:	eef8 7a67 	vcvt.f32.u32	s15, s15
+ 7d0:	ee87 7aa6 	vdiv.f32	s14, s15, s13
+ 7d4:	ed84 7a07 	vstr	s14, [r4, #28]
+ 7d8:	bd10      	pop	{r4, pc}
+
+000007da <NmiSR>:
+// by a debugger.
+//
+//*****************************************************************************
+static void
+NmiSR(void)
+{
+ 7da:	e7fe      	b.n	7da <NmiSR>
+
+000007dc <FaultISR>:
+// for examination by a debugger.
+//
+//*****************************************************************************
+static void
+FaultISR(void)
+{
+ 7dc:	e7fe      	b.n	7dc <FaultISR>
+
+000007de <IntDefaultHandler>:
+// for examination by a debugger.
+//
+//*****************************************************************************
+static void
+IntDefaultHandler(void)
+{
+ 7de:	e7fe      	b.n	7de <IntDefaultHandler>
+
+000007e0 <ResetISR>:
+{
+ 7e0:	4a0c      	ldr	r2, [pc, #48]	; (814 <zero_loop+0x18>)
+ 7e2:	4b0d      	ldr	r3, [pc, #52]	; (818 <zero_loop+0x1c>)
+    for(pui32Dest = &_data; pui32Dest < &_edata; )
+ 7e4:	490d      	ldr	r1, [pc, #52]	; (81c <zero_loop+0x20>)
+ 7e6:	428b      	cmp	r3, r1
+ 7e8:	d204      	bcs.n	7f4 <ResetISR+0x14>
+        *pui32Dest++ = *pui32Src++;
+ 7ea:	f852 0f04 	ldr.w	r0, [r2, #4]!
+ 7ee:	f843 0b04 	str.w	r0, [r3], #4
+ 7f2:	e7f8      	b.n	7e6 <ResetISR+0x6>
+    __asm("    ldr     r0, =_bss\n"
+ 7f4:	480b      	ldr	r0, [pc, #44]	; (824 <zero_loop+0x28>)
+ 7f6:	490c      	ldr	r1, [pc, #48]	; (828 <zero_loop+0x2c>)
+ 7f8:	f04f 0200 	mov.w	r2, #0
+
+000007fc <zero_loop>:
+ 7fc:	4288      	cmp	r0, r1
+ 7fe:	bfb8      	it	lt
+ 800:	f840 2b04 	strlt.w	r2, [r0], #4
+ 804:	dbfa      	blt.n	7fc <zero_loop>
+    HWREG(NVIC_CPAC) = ((HWREG(NVIC_CPAC) &
+ 806:	4a06      	ldr	r2, [pc, #24]	; (820 <zero_loop+0x24>)
+ 808:	6813      	ldr	r3, [r2, #0]
+                        NVIC_CPAC_CP10_FULL | NVIC_CPAC_CP11_FULL);
+ 80a:	f443 0370 	orr.w	r3, r3, #15728640	; 0xf00000
+    HWREG(NVIC_CPAC) = ((HWREG(NVIC_CPAC) &
+ 80e:	6013      	str	r3, [r2, #0]
+    main();
+ 810:	f7ff bdb4 	b.w	37c <main>
+ 814:	00000bdc 	.word	0x00000bdc
+ 818:	20000000 	.word	0x20000000
+ 81c:	20000000 	.word	0x20000000
+ 820:	e000ed88 	.word	0xe000ed88
+ 824:	20000000 	.word	0x20000000
+ 828:	20000104 	.word	0x20000104
+
+0000082c <UARTStdioConfig>:
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTStdioConfig(uint32_t ui32PortNum, uint32_t ui32Baud, uint32_t ui32SrcClock)
+{
+ 82c:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+#endif
+
+    //
+    // Check to make sure the UART peripheral is present.
+    //
+    if(!MAP_SysCtlPeripheralPresent(g_ui32UARTPeriph[ui32PortNum]))
+ 830:	4b12      	ldr	r3, [pc, #72]	; (87c <UARTStdioConfig+0x50>)
+ 832:	4e13      	ldr	r6, [pc, #76]	; (880 <UARTStdioConfig+0x54>)
+ 834:	f853 5020 	ldr.w	r5, [r3, r0, lsl #2]
+ 838:	6833      	ldr	r3, [r6, #0]
+{
+ 83a:	4607      	mov	r7, r0
+    if(!MAP_SysCtlPeripheralPresent(g_ui32UARTPeriph[ui32PortNum]))
+ 83c:	691b      	ldr	r3, [r3, #16]
+ 83e:	4628      	mov	r0, r5
+{
+ 840:	4689      	mov	r9, r1
+ 842:	4690      	mov	r8, r2
+    if(!MAP_SysCtlPeripheralPresent(g_ui32UARTPeriph[ui32PortNum]))
+ 844:	4798      	blx	r3
+ 846:	b1b0      	cbz	r0, 876 <UARTStdioConfig+0x4a>
+    }
+
+    //
+    // Select the base address of the UART.
+    //
+    g_ui32Base = g_ui32UARTBase[ui32PortNum];
+ 848:	4b0e      	ldr	r3, [pc, #56]	; (884 <UARTStdioConfig+0x58>)
+ 84a:	4c0f      	ldr	r4, [pc, #60]	; (888 <UARTStdioConfig+0x5c>)
+ 84c:	f853 3027 	ldr.w	r3, [r3, r7, lsl #2]
+ 850:	6023      	str	r3, [r4, #0]
+
+    //
+    // Enable the UART peripheral for use.
+    //
+    MAP_SysCtlPeripheralEnable(g_ui32UARTPeriph[ui32PortNum]);
+ 852:	6833      	ldr	r3, [r6, #0]
+ 854:	4628      	mov	r0, r5
+
+    //
+    // Configure the UART for 115200, n, 8, 1
+    //
+    MAP_UARTConfigSetExpClk(g_ui32Base, ui32SrcClock, ui32Baud,
+ 856:	4d0d      	ldr	r5, [pc, #52]	; (88c <UARTStdioConfig+0x60>)
+    MAP_SysCtlPeripheralEnable(g_ui32UARTPeriph[ui32PortNum]);
+ 858:	699b      	ldr	r3, [r3, #24]
+ 85a:	4798      	blx	r3
+    MAP_UARTConfigSetExpClk(g_ui32Base, ui32SrcClock, ui32Baud,
+ 85c:	682b      	ldr	r3, [r5, #0]
+ 85e:	6820      	ldr	r0, [r4, #0]
+ 860:	695e      	ldr	r6, [r3, #20]
+ 862:	464a      	mov	r2, r9
+ 864:	2360      	movs	r3, #96	; 0x60
+ 866:	4641      	mov	r1, r8
+ 868:	47b0      	blx	r6
+#endif
+
+    //
+    // Enable the UART operation.
+    //
+    MAP_UARTEnable(g_ui32Base);
+ 86a:	682b      	ldr	r3, [r5, #0]
+ 86c:	6820      	ldr	r0, [r4, #0]
+ 86e:	69db      	ldr	r3, [r3, #28]
+}
+ 870:	e8bd 47f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+    MAP_UARTEnable(g_ui32Base);
+ 874:	4718      	bx	r3
+ 876:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+ 87a:	bf00      	nop
+ 87c:	00000b44 	.word	0x00000b44
+ 880:	01000044 	.word	0x01000044
+ 884:	00000b18 	.word	0x00000b18
+ 888:	20000100 	.word	0x20000100
+ 88c:	01000014 	.word	0x01000014
+
+00000890 <UARTwrite>:
+//! \return Returns the count of characters written.
+//
+//*****************************************************************************
+int
+UARTwrite(const char *pcBuf, uint32_t ui32Len)
+{
+ 890:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+ 894:	4e0d      	ldr	r6, [pc, #52]	; (8cc <UARTwrite+0x3c>)
+        // If the character to the UART is \n, then add a \r before it so that
+        // \n is translated to \n\r in the output.
+        //
+        if(pcBuf[uIdx] == '\n')
+        {
+            MAP_UARTCharPut(g_ui32Base, '\r');
+ 896:	4f0e      	ldr	r7, [pc, #56]	; (8d0 <UARTwrite+0x40>)
+{
+ 898:	460d      	mov	r5, r1
+ 89a:	4604      	mov	r4, r0
+ 89c:	eb00 0801 	add.w	r8, r0, r1
+    for(uIdx = 0; uIdx < ui32Len; uIdx++)
+ 8a0:	4544      	cmp	r4, r8
+ 8a2:	d010      	beq.n	8c6 <UARTwrite+0x36>
+        if(pcBuf[uIdx] == '\n')
+ 8a4:	7823      	ldrb	r3, [r4, #0]
+ 8a6:	2b0a      	cmp	r3, #10
+ 8a8:	46a1      	mov	r9, r4
+ 8aa:	d104      	bne.n	8b6 <UARTwrite+0x26>
+            MAP_UARTCharPut(g_ui32Base, '\r');
+ 8ac:	683b      	ldr	r3, [r7, #0]
+ 8ae:	6830      	ldr	r0, [r6, #0]
+ 8b0:	681b      	ldr	r3, [r3, #0]
+ 8b2:	210d      	movs	r1, #13
+ 8b4:	4798      	blx	r3
+        }
+
+        //
+        // Send the character to the UART output.
+        //
+        MAP_UARTCharPut(g_ui32Base, pcBuf[uIdx]);
+ 8b6:	683b      	ldr	r3, [r7, #0]
+ 8b8:	f899 1000 	ldrb.w	r1, [r9]
+ 8bc:	681b      	ldr	r3, [r3, #0]
+ 8be:	6830      	ldr	r0, [r6, #0]
+ 8c0:	3401      	adds	r4, #1
+ 8c2:	4798      	blx	r3
+ 8c4:	e7ec      	b.n	8a0 <UARTwrite+0x10>
+    //
+    // Return the number of characters written.
+    //
+    return(uIdx);
+#endif
+}
+ 8c6:	4628      	mov	r0, r5
+ 8c8:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+ 8cc:	20000100 	.word	0x20000100
+ 8d0:	01000014 	.word	0x01000014
+
+000008d4 <UARTvprintf>:
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTvprintf(const char *pcString, va_list vaArgP)
+{
+ 8d4:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+                    // Convert the value into a string.
+                    //
+                    for(; ui32Idx; ui32Idx /= ui32Base)
+                    {
+                        pcBuf[ui32Pos++] =
+                            g_pcHex[(ui32Value / ui32Idx) % ui32Base];
+ 8d8:	4f66      	ldr	r7, [pc, #408]	; (a74 <UARTvprintf+0x1a0>)
+{
+ 8da:	b086      	sub	sp, #24
+ 8dc:	4606      	mov	r6, r0
+ 8de:	460d      	mov	r5, r1
+    while(*pcString)
+ 8e0:	7833      	ldrb	r3, [r6, #0]
+ 8e2:	2b00      	cmp	r3, #0
+ 8e4:	f000 80c3 	beq.w	a6e <UARTvprintf+0x19a>
+ 8e8:	4633      	mov	r3, r6
+ 8ea:	1b99      	subs	r1, r3, r6
+            (pcString[ui32Idx] != '%') && (pcString[ui32Idx] != '\0');
+ 8ec:	461c      	mov	r4, r3
+ 8ee:	f813 2b01 	ldrb.w	r2, [r3], #1
+        for(ui32Idx = 0;
+ 8f2:	2a25      	cmp	r2, #37	; 0x25
+ 8f4:	d107      	bne.n	906 <UARTvprintf+0x32>
+        UARTwrite(pcString, ui32Idx);
+ 8f6:	4630      	mov	r0, r6
+ 8f8:	f7ff ffca 	bl	890 <UARTwrite>
+        if(*pcString == '%')
+ 8fc:	7823      	ldrb	r3, [r4, #0]
+ 8fe:	2b25      	cmp	r3, #37	; 0x25
+ 900:	d004      	beq.n	90c <UARTvprintf+0x38>
+ 902:	4626      	mov	r6, r4
+ 904:	e7ec      	b.n	8e0 <UARTvprintf+0xc>
+            (pcString[ui32Idx] != '%') && (pcString[ui32Idx] != '\0');
+ 906:	2a00      	cmp	r2, #0
+ 908:	d1ef      	bne.n	8ea <UARTvprintf+0x16>
+ 90a:	e7f4      	b.n	8f6 <UARTvprintf+0x22>
+            pcString++;
+ 90c:	1c60      	adds	r0, r4, #1
+            cFill = ' ';
+ 90e:	f04f 0e20 	mov.w	lr, #32
+            ui32Count = 0;
+ 912:	2400      	movs	r4, #0
+ 914:	220a      	movs	r2, #10
+            switch(*pcString++)
+ 916:	4606      	mov	r6, r0
+ 918:	f816 3b01 	ldrb.w	r3, [r6], #1
+ 91c:	2b64      	cmp	r3, #100	; 0x64
+ 91e:	d02c      	beq.n	97a <UARTvprintf+0xa6>
+ 920:	d815      	bhi.n	94e <UARTvprintf+0x7a>
+ 922:	2b39      	cmp	r3, #57	; 0x39
+ 924:	d806      	bhi.n	934 <UARTvprintf+0x60>
+ 926:	2b30      	cmp	r3, #48	; 0x30
+ 928:	d21d      	bcs.n	966 <UARTvprintf+0x92>
+ 92a:	2b25      	cmp	r3, #37	; 0x25
+ 92c:	f040 8098 	bne.w	a60 <UARTvprintf+0x18c>
+                case '%':
+                {
+                    //
+                    // Simply write a single %.
+                    //
+                    UARTwrite(pcString - 1, 1);
+ 930:	2101      	movs	r1, #1
+ 932:	e097      	b.n	a64 <UARTvprintf+0x190>
+            switch(*pcString++)
+ 934:	2b58      	cmp	r3, #88	; 0x58
+ 936:	d046      	beq.n	9c6 <UARTvprintf+0xf2>
+ 938:	2b63      	cmp	r3, #99	; 0x63
+ 93a:	f040 8091 	bne.w	a60 <UARTvprintf+0x18c>
+                    ui32Value = va_arg(vaArgP, uint32_t);
+ 93e:	a806      	add	r0, sp, #24
+ 940:	682b      	ldr	r3, [r5, #0]
+ 942:	f840 3d14 	str.w	r3, [r0, #-20]!
+ 946:	f105 0804 	add.w	r8, r5, #4
+                    UARTwrite((char *)&ui32Value, 1);
+ 94a:	2101      	movs	r1, #1
+ 94c:	e085      	b.n	a5a <UARTvprintf+0x186>
+            switch(*pcString++)
+ 94e:	2b73      	cmp	r3, #115	; 0x73
+ 950:	d01d      	beq.n	98e <UARTvprintf+0xba>
+ 952:	d803      	bhi.n	95c <UARTvprintf+0x88>
+ 954:	2b69      	cmp	r3, #105	; 0x69
+ 956:	d010      	beq.n	97a <UARTvprintf+0xa6>
+ 958:	2b70      	cmp	r3, #112	; 0x70
+ 95a:	e002      	b.n	962 <UARTvprintf+0x8e>
+ 95c:	2b75      	cmp	r3, #117	; 0x75
+ 95e:	d02c      	beq.n	9ba <UARTvprintf+0xe6>
+ 960:	2b78      	cmp	r3, #120	; 0x78
+ 962:	d030      	beq.n	9c6 <UARTvprintf+0xf2>
+ 964:	e07c      	b.n	a60 <UARTvprintf+0x18c>
+                    if((pcString[-1] == '0') && (ui32Count == 0))
+ 966:	d102      	bne.n	96e <UARTvprintf+0x9a>
+                        cFill = '0';
+ 968:	2c00      	cmp	r4, #0
+ 96a:	bf08      	it	eq
+ 96c:	469e      	moveq	lr, r3
+ 96e:	fb02 3304 	mla	r3, r2, r4, r3
+                    ui32Count += pcString[-1] - '0';
+ 972:	f1a3 0430 	sub.w	r4, r3, #48	; 0x30
+                    goto again;
+ 976:	4630      	mov	r0, r6
+ 978:	e7cd      	b.n	916 <UARTvprintf+0x42>
+                    ui32Value = va_arg(vaArgP, uint32_t);
+ 97a:	682b      	ldr	r3, [r5, #0]
+                    if((int32_t)ui32Value < 0)
+ 97c:	2b00      	cmp	r3, #0
+                    ui32Value = va_arg(vaArgP, uint32_t);
+ 97e:	f105 0804 	add.w	r8, r5, #4
+                    if((int32_t)ui32Value < 0)
+ 982:	da1d      	bge.n	9c0 <UARTvprintf+0xec>
+                        ui32Value = -(int32_t)ui32Value;
+ 984:	425b      	negs	r3, r3
+ 986:	9301      	str	r3, [sp, #4]
+                        ui32Neg = 1;
+ 988:	2101      	movs	r1, #1
+                    ui32Base = 10;
+ 98a:	220a      	movs	r2, #10
+ 98c:	e021      	b.n	9d2 <UARTvprintf+0xfe>
+                    pcStr = va_arg(vaArgP, char *);
+ 98e:	6828      	ldr	r0, [r5, #0]
+ 990:	f105 0804 	add.w	r8, r5, #4
+                    for(ui32Idx = 0; pcStr[ui32Idx] != '\0'; ui32Idx++)
+ 994:	4603      	mov	r3, r0
+ 996:	1a1d      	subs	r5, r3, r0
+ 998:	f813 2b01 	ldrb.w	r2, [r3], #1
+ 99c:	2a00      	cmp	r2, #0
+ 99e:	d1fa      	bne.n	996 <UARTvprintf+0xc2>
+                    UARTwrite(pcStr, ui32Idx);
+ 9a0:	4629      	mov	r1, r5
+ 9a2:	f7ff ff75 	bl	890 <UARTwrite>
+                    if(ui32Count > ui32Idx)
+ 9a6:	42ac      	cmp	r4, r5
+ 9a8:	d95f      	bls.n	a6a <UARTvprintf+0x196>
+                        ui32Count -= ui32Idx;
+ 9aa:	1b64      	subs	r4, r4, r5
+                            UARTwrite(" ", 1);
+ 9ac:	2101      	movs	r1, #1
+ 9ae:	4832      	ldr	r0, [pc, #200]	; (a78 <UARTvprintf+0x1a4>)
+ 9b0:	f7ff ff6e 	bl	890 <UARTwrite>
+                        while(ui32Count--)
+ 9b4:	3c01      	subs	r4, #1
+ 9b6:	d1f9      	bne.n	9ac <UARTvprintf+0xd8>
+ 9b8:	e057      	b.n	a6a <UARTvprintf+0x196>
+                    ui32Value = va_arg(vaArgP, uint32_t);
+ 9ba:	682b      	ldr	r3, [r5, #0]
+ 9bc:	f105 0804 	add.w	r8, r5, #4
+ 9c0:	9301      	str	r3, [sp, #4]
+                    ui32Neg = 0;
+ 9c2:	2100      	movs	r1, #0
+ 9c4:	e7e1      	b.n	98a <UARTvprintf+0xb6>
+                    ui32Value = va_arg(vaArgP, uint32_t);
+ 9c6:	682b      	ldr	r3, [r5, #0]
+ 9c8:	9301      	str	r3, [sp, #4]
+ 9ca:	f105 0804 	add.w	r8, r5, #4
+                    ui32Neg = 0;
+ 9ce:	2100      	movs	r1, #0
+                    ui32Base = 16;
+ 9d0:	2210      	movs	r2, #16
+                        (((ui32Idx * ui32Base) <= ui32Value) &&
+ 9d2:	f8dd 9004 	ldr.w	r9, [sp, #4]
+                    for(ui32Idx = 1;
+ 9d6:	2501      	movs	r5, #1
+                        (((ui32Idx * ui32Base) <= ui32Value) &&
+ 9d8:	fb02 f305 	mul.w	r3, r2, r5
+                    for(ui32Idx = 1;
+ 9dc:	454b      	cmp	r3, r9
+ 9de:	d902      	bls.n	9e6 <UARTvprintf+0x112>
+                    if(ui32Neg)
+ 9e0:	b941      	cbnz	r1, 9f4 <UARTvprintf+0x120>
+ 9e2:	460b      	mov	r3, r1
+ 9e4:	e013      	b.n	a0e <UARTvprintf+0x13a>
+                        (((ui32Idx * ui32Base) <= ui32Value) &&
+ 9e6:	fbb3 f0f2 	udiv	r0, r3, r2
+ 9ea:	4285      	cmp	r5, r0
+ 9ec:	d1f8      	bne.n	9e0 <UARTvprintf+0x10c>
+                        ui32Idx *= ui32Base, ui32Count--)
+ 9ee:	3c01      	subs	r4, #1
+ 9f0:	461d      	mov	r5, r3
+ 9f2:	e7f1      	b.n	9d8 <UARTvprintf+0x104>
+                    if(ui32Neg && (cFill == '0'))
+ 9f4:	f1be 0f30 	cmp.w	lr, #48	; 0x30
+                        pcBuf[ui32Pos++] = '-';
+ 9f8:	bf04      	itt	eq
+ 9fa:	232d      	moveq	r3, #45	; 0x2d
+ 9fc:	f88d 3008 	strbeq.w	r3, [sp, #8]
+                        ui32Count--;
+ a00:	f104 34ff 	add.w	r4, r4, #4294967295	; 0xffffffff
+                        ui32Neg = 0;
+ a04:	bf07      	ittee	eq
+ a06:	2100      	moveq	r1, #0
+                        pcBuf[ui32Pos++] = '-';
+ a08:	2301      	moveq	r3, #1
+ a0a:	2101      	movne	r1, #1
+ a0c:	2300      	movne	r3, #0
+                    if((ui32Count > 1) && (ui32Count < 16))
+ a0e:	1ea0      	subs	r0, r4, #2
+ a10:	280d      	cmp	r0, #13
+ a12:	a802      	add	r0, sp, #8
+ a14:	d80b      	bhi.n	a2e <UARTvprintf+0x15a>
+ a16:	f103 3cff 	add.w	ip, r3, #4294967295	; 0xffffffff
+                        for(ui32Count--; ui32Count; ui32Count--)
+ a1a:	f104 3aff 	add.w	sl, r4, #4294967295	; 0xffffffff
+ a1e:	4484      	add	ip, r0
+ a20:	f1ba 0a01 	subs.w	sl, sl, #1
+                            pcBuf[ui32Pos++] = cFill;
+ a24:	f80c ef01 	strb.w	lr, [ip, #1]!
+                        for(ui32Count--; ui32Count; ui32Count--)
+ a28:	d1fa      	bne.n	a20 <UARTvprintf+0x14c>
+ a2a:	4423      	add	r3, r4
+ a2c:	3b01      	subs	r3, #1
+                    if(ui32Neg)
+ a2e:	b129      	cbz	r1, a3c <UARTvprintf+0x168>
+                        pcBuf[ui32Pos++] = '-';
+ a30:	a906      	add	r1, sp, #24
+ a32:	4419      	add	r1, r3
+ a34:	242d      	movs	r4, #45	; 0x2d
+ a36:	f801 4c10 	strb.w	r4, [r1, #-16]
+ a3a:	3301      	adds	r3, #1
+ a3c:	4403      	add	r3, r0
+ a3e:	1a19      	subs	r1, r3, r0
+                    for(; ui32Idx; ui32Idx /= ui32Base)
+ a40:	b15d      	cbz	r5, a5a <UARTvprintf+0x186>
+                            g_pcHex[(ui32Value / ui32Idx) % ui32Base];
+ a42:	fbb9 f4f5 	udiv	r4, r9, r5
+ a46:	fbb4 f1f2 	udiv	r1, r4, r2
+ a4a:	fb02 4111 	mls	r1, r2, r1, r4
+                    for(; ui32Idx; ui32Idx /= ui32Base)
+ a4e:	fbb5 f5f2 	udiv	r5, r5, r2
+                        pcBuf[ui32Pos++] =
+ a52:	5dc9      	ldrb	r1, [r1, r7]
+ a54:	f803 1b01 	strb.w	r1, [r3], #1
+ a58:	e7f1      	b.n	a3e <UARTvprintf+0x16a>
+                    UARTwrite(pcBuf, ui32Pos);
+ a5a:	f7ff ff19 	bl	890 <UARTwrite>
+                    break;
+ a5e:	e004      	b.n	a6a <UARTvprintf+0x196>
+                default:
+                {
+                    //
+                    // Indicate an error.
+                    //
+                    UARTwrite("ERROR", 5);
+ a60:	4806      	ldr	r0, [pc, #24]	; (a7c <UARTvprintf+0x1a8>)
+ a62:	2105      	movs	r1, #5
+ a64:	f7ff ff14 	bl	890 <UARTwrite>
+
+                    //
+                    // This command has been handled.
+                    //
+                    break;
+ a68:	46a8      	mov	r8, r5
+                    break;
+ a6a:	4645      	mov	r5, r8
+ a6c:	e738      	b.n	8e0 <UARTvprintf+0xc>
+                }
+            }
+        }
+    }
+}
+ a6e:	b006      	add	sp, #24
+ a70:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+ a74:	00000b2b 	.word	0x00000b2b
+ a78:	00000b08 	.word	0x00000b08
+ a7c:	00000b3c 	.word	0x00000b3c
+
+00000a80 <UARTprintf>:
+//! \return None.
+//
+//*****************************************************************************
+void
+UARTprintf(const char *pcString, ...)
+{
+ a80:	b40f      	push	{r0, r1, r2, r3}
+ a82:	b507      	push	{r0, r1, r2, lr}
+ a84:	a904      	add	r1, sp, #16
+ a86:	f851 0b04 	ldr.w	r0, [r1], #4
+    va_list vaArgP;
+
+    //
+    // Start the varargs processing.
+    //
+    va_start(vaArgP, pcString);
+ a8a:	9101      	str	r1, [sp, #4]
+
+    UARTvprintf(pcString, vaArgP);
+ a8c:	f7ff ff22 	bl	8d4 <UARTvprintf>
+
+    //
+    // We're finished with the varargs now.
+    //
+    va_end(vaArgP);
+}
+ a90:	b003      	add	sp, #12
+ a92:	f85d eb04 	ldr.w	lr, [sp], #4
+ a96:	b004      	add	sp, #16
+ a98:	4770      	bx	lr
+	...
+
+00000a9c <GPIOPinConfigure>:
+ a9c:	4a0e      	ldr	r2, [pc, #56]	; (ad8 <GPIOPinConfigure+0x3c>)
+ a9e:	f3c0 4307 	ubfx	r3, r0, #16, #8
+ aa2:	6811      	ldr	r1, [r2, #0]
+ aa4:	2201      	movs	r2, #1
+ aa6:	409a      	lsls	r2, r3
+ aa8:	420a      	tst	r2, r1
+ aaa:	ea4f 0343 	mov.w	r3, r3, lsl #1
+ aae:	4a0b      	ldr	r2, [pc, #44]	; (adc <GPIOPinConfigure+0x40>)
+ ab0:	bf18      	it	ne
+ ab2:	3301      	addne	r3, #1
+ ab4:	b510      	push	{r4, lr}
+ ab6:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
+ aba:	f3c0 2407 	ubfx	r4, r0, #8, #8
+ abe:	f8d3 152c 	ldr.w	r1, [r3, #1324]	; 0x52c
+ ac2:	220f      	movs	r2, #15
+ ac4:	40a2      	lsls	r2, r4
+ ac6:	f000 000f 	and.w	r0, r0, #15
+ aca:	ea21 0202 	bic.w	r2, r1, r2
+ ace:	40a0      	lsls	r0, r4
+ ad0:	4310      	orrs	r0, r2
+ ad2:	f8c3 052c 	str.w	r0, [r3, #1324]	; 0x52c
+ ad6:	bd10      	pop	{r4, pc}
+ ad8:	400fe06c 	.word	0x400fe06c
+ adc:	00000b50 	.word	0x00000b50
+
+00000ae0 <UARTClockSourceSet>:
+ ae0:	f8c0 1fc8 	str.w	r1, [r0, #4040]	; 0xfc8
+ ae4:	4770      	bx	lr
+ ae6:	5349      	.short	0x5349
+ ae8:	3039324c 	.word	0x3039324c
+ aec:	45203332 	.word	0x45203332
+ af0:	706d6178 	.word	0x706d6178
+ af4:	000a656c 	.word	0x000a656c
+ af8:	3a534c41 	.word	0x3a534c41
+ afc:	2e642520 	.word	0x2e642520
+ b00:	64333025 	.word	0x64333025
+ b04:	7c2e7c20 	.word	0x7c2e7c20
+ b08:	52490020 	.word	0x52490020
+ b0c:	6425203a 	.word	0x6425203a
+ b10:	3330252e 	.word	0x3330252e
+ b14:	00000a64 	.word	0x00000a64
+
+00000b18 <g_ui32UARTBase>:
+ b18:	4000c000 4000d000 4000e000 00082008     ...@...@...@. ..
+ b28:	30000a0d 34333231 38373635 63626139     ...0123456789abc
+ b38:	00666564 4f525245 00000052              def.ERROR...
+
+00000b44 <g_ui32UARTPeriph>:
+ b44:	f0001800 f0001801 f0001802              ............
+
+00000b50 <g_pui32GPIOBaseAddrs>:
+ b50:	40004000 40058000 40005000 40059000     .@.@...@.P.@...@
+ b60:	40006000 4005a000 40007000 4005b000     .`.@...@.p.@...@
+ b70:	40024000 4005c000 40025000 4005d000     .@.@...@.P.@...@
+ b80:	40026000 4005e000 40027000 4005f000     .`.@...@.p.@...@
+ b90:	4003d000 40060000 40061000 40061000     ...@...@...@...@
+ ba0:	40062000 40062000 40063000 40063000     . .@. .@.0.@.0.@
+ bb0:	40064000 40064000 40065000 40065000     .@.@.@.@.P.@.P.@
+ bc0:	40066000 40066000 40067000 40067000     .`.@.`.@.p.@.p.@
+ bd0:	40068000 40068000 40069000 40069000     ...@...@...@...@
